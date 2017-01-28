@@ -3,7 +3,7 @@ Integrations for our entire sales pipeline
 
 # Necessary API integrations
 ## Zoom
-* [Accounts/Subscriptions/Sub-Accounts](https://zoom.us/developer/overview/rest-account-api)
+* [Accounts](https://zoom.us/developer/overview/rest-account-api)
 * [Webinars](https://zoom.us/developer/overview/rest-webinar-api)
 
 ## Zoho

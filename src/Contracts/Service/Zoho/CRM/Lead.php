@@ -1,6 +1,6 @@
 <?php
 
-namespace SalesOpz\Contracts\API\Zoho\CRM;
+namespace SalesOpz\Contracts\Service\Zoho\CRM;
 
 interface Lead
 {

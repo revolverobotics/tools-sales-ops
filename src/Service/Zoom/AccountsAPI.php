@@ -1,14 +1,31 @@
 <?php
 
-namespace SalesOpz\Contracts;
+namespace SalesOpz\Service\Zoom;
 
-/**
- * Interacts with the Zoom Account API. Essential for managing sub accounts.
- *
- * Documentation: https://zoom.us/developer/overview/rest-account-api
- */
-interface ZoomAccount
+use SalesOpz\Client\Client;
+use SalesOpz\Service\Zoom\Parser;
+use SalesOpz\Service\Zoom\Authorizer;
+use SalesOpz\Contracts\Service\Zoom\Account;
+
+class AccountsAPI implements Account extends Client
 {
+    /**
+     * Credentials used to authorize the client.
+     *
+     * @var mixed
+     */
+    protected $credentials;
+
+    /**
+     * Grant provided by the ServiceAuthorizer to be used for
+     * subsequent requests to the ServiceInterface.
+     *
+     * @var mixed
+     */
+    protected $grant;
+
+    public $parser;
+
     /**
      * Create a sub account.
      *
@@ -19,7 +36,10 @@ interface ZoomAccount
      * @param  mixed  $options     [...] See Zoom documentation for all other available parameters
      * @return array  JsonResponse {id, owner_id, owner_email, created_at}
      */
-    public function createSubAccount($email, $firstName, $lastName, $password, ...$options);
+    public function createSubAccount($email, $firstName, $lastName, $password, ...$options)
+    {
+
+    }
 
     /**
      * Update a sub account.
@@ -28,7 +48,10 @@ interface ZoomAccount
      * @param  mixed  $options     [...] See Zoom documentation for all other available parameters
      * @return array  JsonResponse {id, updated_at}
      */
-    public function updateSubAccount($accountId, $options = null);
+    public function updateSubAccount($accountId, $options = null)
+    {
+
+    }
 
     /**
      * Delete a sub account.
@@ -36,14 +59,20 @@ interface ZoomAccount
      * @param  string $accountId
      * @return array  JsonResponse {id, deleted_at}
      */
-    public function deleteSubAccount($accountId);
+    public function deleteSubAccount($accountId)
+    {
+
+    }
 
     /**
      * List all the sub accounts under the master account.
      *
      * @return array  JsonResponse {page_count, page_number, page_size, total_records, subAccounts: {id, owner_email, created_at}}
      */
-    public function listSubAccount();
+    public function listSubAccount()
+    {
+
+    }
 
     /**
      * Get a sub account.
@@ -51,7 +80,10 @@ interface ZoomAccount
      * @param  string $accountId
      * @return array  JsonResponse {id, owner_id, owner_email, created_at}
      */
-    public function getSubAccount($accountId);
+    public function getSubAccount($accountId)
+    {
+
+    }
 
     /**
      * Subscribe a plan for a sub account. Only works for free sub accounts,
@@ -72,7 +104,10 @@ interface ZoomAccount
      * @param  mixed  $options  [...] See Zoom documentation for all other available parameters
      * @return JsonResponse     {...} See Zoom documentation for more details
      */
-    public function subscribePlan($email, $firstName, $lastName, $phoneNumber, $address, $city, $country, $state, $zip, $planBase, ...$options);
+    public function subscribePlan($email, $firstName, $lastName, $phoneNumber, $address, $city, $country, $state, $zip, $planBase, ...$options)
+    {
+
+    }
 
     /**
      * Add a plan to a sub account. Only works for sub accounts that already
@@ -81,7 +116,10 @@ interface ZoomAccount
      * @param string $accountId
      * @param string $plan      {type, hosts} See Zoom documentation for more details
      */
-    public function addPlan($accountId, $plan);
+    public function addPlan($accountId, $plan)
+    {
+
+    }
 
     /**
      * Update a plan for a paid sub account.
@@ -91,7 +129,10 @@ interface ZoomAccount
      * @param  string  $plan      [...] See Zoom documentation for all available plans
      * @return JsonResponse       {id, updated_at}
      */
-    public function updatePlan($accountId, $type, $plan);
+    public function updatePlan($accountId, $type, $plan)
+    {
+
+    }
 
     /**
      * Get plan information for a sub account.
@@ -99,7 +140,10 @@ interface ZoomAccount
      * @param  string  $accountId
      * @return JsonResponse       {...} See Zoom documentation for more details
      */
-    public function getPlan($accountId);
+    public function getPlan($accountId)
+    {
+
+    }
 
     /**
      * Update the billing information for a sub account.
@@ -108,5 +152,9 @@ interface ZoomAccount
      * @param  mixed  $options   [...] See Zoom documentation for all available parameters
      * @return JsonResponse      {id, updated_at}
      */
-    public function updateBilling($accountId, ...$options);
+    public function updateBilling($accountId, ...$options)
+    {
+
+    }
 }
+

@@ -2,45 +2,45 @@
 
 namespace SalesOpz\Contracts\Client;
 
-interface Client
+interface RequestInterface
 {
     /**
      * Initiate a GET request.
-     * @param  array|null  $content
+     * @param  array|null  $input
      * @param  array|null  $headers
      * @return mixed
      */
-    public function get($content = null, $headers = null);
+    public function get($input = null, $headers = null);
 
     /**
      * Initiate a POST request.
-     * @param  array|null  $content
+     * @param  array|null  $input
      * @param  array|null  $headers
      * @return mixed
      */
-    public function post($content = null, $headers = null);
+    public function post($input = null, $headers = null);
 
     /**
      * Initiate a PUT request.
-     * @param  array|null  $content
+     * @param  array|null  $input
      * @param  array|null  $headers
      * @return mixed
      */
-    public function put($content = null, $headers = null);
+    public function put($input = null, $headers = null);
 
     /**
      * Initiate a PATCH request.
-     * @param  array|null  $content
+     * @param  array|null  $input
      * @param  array|null  $headers
      * @return mixed
      */
-    public function patch($content = null, $headers = null);
+    public function patch($input = null, $headers = null);
 
     /**
      * Initiate a DELETE request.
-     * @param  array|null  $content
+     * @param  array|null  $input
      * @param  array|null  $headers
      * @return mixed
      */
-    public function delete($content = null, $headers = null);
+    public function delete($input = null, $headers = null);
 }

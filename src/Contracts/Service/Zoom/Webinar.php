@@ -1,6 +1,6 @@
 <?php
 
-namespace SalesOpz\Contracts\Zoom;
+namespace SalesOpz\Contracts\Service\Zoom;
 
 /**
  * Interacts with the Zoom Webinar API.

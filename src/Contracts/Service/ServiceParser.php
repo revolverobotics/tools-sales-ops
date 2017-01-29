@@ -10,5 +10,5 @@ interface ServiceParser
      * @param  mixed  $response
      * @return array  $response
      */
-    public function __construct($response);
+    public function parse($response);
 }

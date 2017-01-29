@@ -24,7 +24,7 @@ Integrations for our entire sales pipeline
  * [ ] Zoho Books: Purchase Orders
  * [ ] Stripe: Payments
  * [ ] Stripe: Subscriptions
-* [ ] Create Concrete Classes for:
+* [ ] Create Concrete API Classes for:
  * [x] Zoom Accounts
  * [ ] Zoom Webinars
  * [ ] Zoho Accounts

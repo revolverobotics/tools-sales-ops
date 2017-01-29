@@ -1,10 +1,8 @@
 <?php
 
-namespace SalesOpz\Service;
+namespace SalesOpz\Contracts\Service;
 
-use SalesOpz\Contracts\Service\ServiceParser;
-
-abstract class AbstractParser implements ServiceParser
+interface ServiceParser
 {
     /**
      * Perform any necessary parsing functions to make our response data usable.
@@ -12,5 +10,5 @@ abstract class AbstractParser implements ServiceParser
      * @param  mixed  $response
      * @return array  $response
      */
-    abstract public function parse($response);
+    public function __construct($response);
 }

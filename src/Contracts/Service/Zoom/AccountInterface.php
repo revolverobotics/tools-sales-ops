@@ -9,7 +9,7 @@ use SalesOpz\Contracts\Service\ServiceInterface;
  *
  * Documentation: https://zoom.us/developer/overview/rest-account-api
  */
-interface Account extends ServiceInterface
+interface AccountInterace extends ServiceInterface
 {
     /**
      * Create a sub account.

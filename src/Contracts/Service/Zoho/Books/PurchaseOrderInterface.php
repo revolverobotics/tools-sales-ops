@@ -2,7 +2,7 @@
 
 namespace SalesOpz\Contracts\Service\Zoho\Books;
 
-interface Invoice
+interface PurchaseOrderInterface
 {
 
 }

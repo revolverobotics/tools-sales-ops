@@ -2,7 +2,7 @@
 
 namespace SalesOpz\Contracts\Service\Zoho\CRM;
 
-interface Potential
+interface AccountInterface
 {
 
 }

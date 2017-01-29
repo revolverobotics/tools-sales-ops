@@ -2,7 +2,7 @@
 
 namespace SalesOpz\Contracts\Service\Zoho\Inventory;
 
-interface CompositeItem
+interface ItemInterface
 {
 
 }

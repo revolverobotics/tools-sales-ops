@@ -2,9 +2,9 @@
 
 namespace SalesOpz\Contracts\Service;
 
-use SalesOpz\Contracts\Client\RequestInterface;
+use SalesOpz\Contracts\Client\ClientInterface;
 
-interface ServiceInterface extends RequestInterface
+interface ServiceInterface extends ClientInterface
 {
-    public function parseResponse();
+    //
 }

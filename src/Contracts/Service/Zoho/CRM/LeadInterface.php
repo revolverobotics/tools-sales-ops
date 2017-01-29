@@ -2,7 +2,7 @@
 
 namespace SalesOpz\Contracts\Service\Zoho\CRM;
 
-interface Lead
+interface LeadInterface
 {
     public function get($authToken, $scope, ...$options);
 }

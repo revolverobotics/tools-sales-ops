@@ -2,39 +2,38 @@
 
 namespace App\Core\Zoom;
 
-use Illuminate\Http\Request;
-use SalesOpz\Client\Client;
-use SalesOpz\Service\Zoom\Authorizer;
-use SalesOpz\Service\Zoom\AccountsAPI;
+use SalesOpz\Service\Zoom\ZoomParser;
+use SalesOpz\Service\Zoom\ZoomAuthorizer;
+use SalesOpz\Service\Zoom\AccountsAPI as ZoomAccountsAPI;
 use App\Http\Controllers\Controller;
 
 class ZoomController
 {
-
-    protected $client;
-
-    public function __construct()
+    public function newSubscription()
     {
-        $this->client = new Client(new AccountsAPI);
+        // Authorize with the Zoom API
+        $accountsApi = new ZoomAccountsAPI(
+            new ZoomAuthorizer(['creds' => '']),
+            new ZoomParser()
+        );
 
-        $this->client->service->auth->check(['creds' => []]);
+        // Create a new sub account
+        $response = $accountsApi->createSubAccount(['input' => []]);
 
+        // Subscribe the sub account to a plan
+        $response = $accountsApi->subscribePlan(['input' => []]);
 
-// TODO: This is too messy...
-// AccountsAPI should extend Client
-// Client should implements Request & Response
-// 
-// We want:
-// $this->api = new AccountsAPI;
-// $this->api->authorize(['credentials' => []]);
+        // Notify user with account details
+        Mail::to('account-owner@email.com')->queue(new Mailable($response));
     }
 
-    public function newSubscription (Request $r)
+    public function modifySubscription()
     {
-        $api = $this->client->service;
+        //
+    }
 
-        $api->createSubAccount();
-
-        $api->
+    public function cancelSubscription()
+    {
+        //
     }
 }

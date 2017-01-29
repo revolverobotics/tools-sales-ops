@@ -7,7 +7,7 @@ namespace SalesOpz\Contracts\Service\Zoom;
  *
  * Documentation: https://zoom.us/developer/overview/rest-webinar-api
  */
-interface Webinar
+interface WebinarInterface
 {
     // Currently these methods are in the same order as in the Zoom docs.
     // We will probably group them afterwards to be a bit more ordered & logical.

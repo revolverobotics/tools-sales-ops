@@ -3,19 +3,12 @@
 namespace SalesOpz\Service\Zoom;
 
 use SalesOpz\Client\Client;
-use SalesOpz\Service\Zoom\Parser;
-use SalesOpz\Service\Zoom\Authorizer;
-use SalesOpz\Contracts\Service\Zoom\Account;
+use SalesOpz\Service\Zoom\ZoomParser;
+use SalesOpz\Service\Zoom\ZoomAuthorizer;
+use SalesOpz\Contracts\Service\Zoom\AccountInterface;
 
-class AccountsAPI implements Account extends Client
+class AccountsAPI extends Client implements AccountInterface
 {
-    /**
-     * Credentials used to authorize the client.
-     *
-     * @var mixed
-     */
-    protected $credentials;
-
     /**
      * Grant provided by the ServiceAuthorizer to be used for
      * subsequent requests to the ServiceInterface.
@@ -24,7 +17,10 @@ class AccountsAPI implements Account extends Client
      */
     protected $grant;
 
-    public $parser;
+    public function __construct(ServiceAuthorizer $auth)
+    {
+        $this->grant = $auth;
+    }
 
     /**
      * Create a sub account.
@@ -38,7 +34,7 @@ class AccountsAPI implements Account extends Client
      */
     public function createSubAccount($email, $firstName, $lastName, $password, ...$options)
     {
-
+        //
     }
 
     /**
@@ -50,7 +46,7 @@ class AccountsAPI implements Account extends Client
      */
     public function updateSubAccount($accountId, $options = null)
     {
-
+        //
     }
 
     /**
@@ -61,7 +57,7 @@ class AccountsAPI implements Account extends Client
      */
     public function deleteSubAccount($accountId)
     {
-
+        //
     }
 
     /**
@@ -71,7 +67,7 @@ class AccountsAPI implements Account extends Client
      */
     public function listSubAccount()
     {
-
+        //
     }
 
     /**
@@ -82,7 +78,7 @@ class AccountsAPI implements Account extends Client
      */
     public function getSubAccount($accountId)
     {
-
+        //
     }
 
     /**
@@ -106,7 +102,7 @@ class AccountsAPI implements Account extends Client
      */
     public function subscribePlan($email, $firstName, $lastName, $phoneNumber, $address, $city, $country, $state, $zip, $planBase, ...$options)
     {
-
+        //
     }
 
     /**
@@ -118,7 +114,7 @@ class AccountsAPI implements Account extends Client
      */
     public function addPlan($accountId, $plan)
     {
-
+        //
     }
 
     /**
@@ -131,7 +127,7 @@ class AccountsAPI implements Account extends Client
      */
     public function updatePlan($accountId, $type, $plan)
     {
-
+        //
     }
 
     /**
@@ -142,7 +138,7 @@ class AccountsAPI implements Account extends Client
      */
     public function getPlan($accountId)
     {
-
+        //
     }
 
     /**
@@ -154,7 +150,6 @@ class AccountsAPI implements Account extends Client
      */
     public function updateBilling($accountId, ...$options)
     {
-
+        //
     }
 }
-

@@ -2,7 +2,7 @@
 
 namespace SalesOpz\Contracts\Service\Stripe;
 
-interface Payment
+interface PaymentInterface
 {
 
 }

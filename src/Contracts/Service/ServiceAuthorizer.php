@@ -8,7 +8,7 @@ interface ServiceAuthorizer
      * Authorizes the client with a service using the given credentials.
      *
      * @param  mixed  $credentials
-     * @return void
+     * @return mixed  $grant
      */
-    public function authorizeClient($credentials);
+    public function authorize($credentials);
 }

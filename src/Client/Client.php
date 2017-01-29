@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use GuzzleHttp\Client as Guzzle;
 use Contracts\Service\ServiceParser;
+use Contracts\Service\ServiceAuthorizer;
 
 class Client implements ServiceInterface
 {

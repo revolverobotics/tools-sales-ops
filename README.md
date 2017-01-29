@@ -9,6 +9,37 @@ Integrations for our entire sales pipeline
 
 ---
 
+# Goals
+* [x] Create Client Interface & Client Wrapper for GuzzleHttp
+* [ ] Map out API Interfaces for:
+ * [x] Zoom Accounts
+ * [ ] Zoom Webinars
+ * [ ] Zoho Accounts
+ * [ ] Zoho Contacts
+ * [ ] Zoho Leads
+ * [ ] Zoho Potentials
+ * [ ] Zoho Inventory: Items
+ * [ ] Zoho Inventory: Composite Items
+ * [ ] Zoho Books: Invoices
+ * [ ] Zoho Books: Purchase Orders
+ * [ ] Stripe: Payments
+ * [ ] Stripe: Subscriptions
+* [ ] Create Concrete Classes for:
+ * [x] Zoom Accounts
+ * [ ] Zoom Webinars
+ * [ ] Zoho Accounts
+ * [ ] Zoho Contacts
+ * [ ] Zoho Leads
+ * [ ] Zoho Potentials
+ * [ ] Zoho Inventory: Items
+ * [ ] Zoho Inventory: Composite Items
+ * [ ] Zoho Books: Invoices
+ * [ ] Zoho Books: Purchase Orders
+ * [ ] Stripe: Payments
+ * [ ] Stripe: Subscriptions
+
+---
+
 # Necessary API integrations
 ## Zoom
 * [Accounts](https://zoom.us/developer/overview/rest-account-api)

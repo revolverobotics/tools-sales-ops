@@ -1,6 +1,14 @@
 # tools-sales-ops
 Integrations for our entire sales pipeline
 
+# Basic Structure
+* Client
+  * Responsible for handling HTTP authorization, requests, and response parsing
+* Services
+  * Client extensions responsible for handling API-specific requests
+
+---
+
 # Necessary API integrations
 ## Zoom
 * [Accounts](https://zoom.us/developer/overview/rest-account-api)

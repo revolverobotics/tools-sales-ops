@@ -2,26 +2,28 @@
 An elegant, Guzzle-based provider for interfacing with the Zoom, Zoho, and Stripe APIs.
 
 # Usage
-    $zoomApi = new ZoomAPI(['credentials' => [
-        'api_key'    => '<key>',
-        'api_secret' => '<secret>'
-    ]]);
+```php
+$zoomApi = new ZoomAPI(['credentials' => [
+    'api_key'    => '<key>',
+    'api_secret' => '<secret>'
+]]);
 
-    $response = $zoomApi->accounts->createSubAccount(['<params>']);
+$response = $zoomApi->accounts->createSubAccount(['<params>']);
 
-    $response = $zoomApi->accounts->subscribePlan(['<params>']);
+$response = $zoomApi->accounts->subscribePlan(['<params>']);
 
-    $response = $zoomApi->webinars->approveRegistrant(['<params>']);
+$response = $zoomApi->webinars->approveRegistrant(['<params>']);
+```
 
 # Basic Structure
 * Client
   * Responsible for handling HTTP authorization, requests, and response parsing
 * Services
-  * Client extensions responsible for handling API-specific requests
+  * Wrappers for various APIs providing interchangable, dependency-injected authorization and parsing methods.
 
 ---
 
-# Goals
+# Initial Goals for API Interaction
 * [x] Create Client Interface & Client Wrapper for GuzzleHttp
 * [ ] Map out API Interfaces for:
  * [x] Zoom Accounts
@@ -52,7 +54,7 @@ An elegant, Guzzle-based provider for interfacing with the Zoom, Zoho, and Strip
 
 ---
 
-# Necessary API integrations
+# Initial Services
 ## Zoom
 * [Accounts](https://zoom.us/developer/overview/rest-account-api)
 * [Webinars](https://zoom.us/developer/overview/rest-webinar-api)

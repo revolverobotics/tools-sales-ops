@@ -3,25 +3,10 @@
 namespace SalesOpz\Service\Zoom;
 
 use SalesOpz\Client\Client;
-use SalesOpz\Service\Zoom\ZoomParser;
-use SalesOpz\Service\Zoom\ZoomAuthorizer;
 use SalesOpz\Contracts\Service\Zoom\AccountInterface;
 
-class AccountsAPI extends Client implements AccountInterface
+class Accounts implements AccountInterface
 {
-    /**
-     * Grant provided by the ServiceAuthorizer to be used for
-     * subsequent requests to the ServiceInterface.
-     *
-     * @var mixed
-     */
-    protected $grant;
-
-    public function __construct(ServiceAuthorizer $auth)
-    {
-        $this->grant = $auth;
-    }
-
     /**
      * Create a sub account.
      *

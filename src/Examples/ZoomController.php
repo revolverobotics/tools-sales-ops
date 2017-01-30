@@ -11,17 +11,13 @@ class ZoomController
 {
     public function newSubscription()
     {
-        // Authorize with the Zoom API
-        $accountsApi = new ZoomAccountsAPI(
-            new ZoomAuthorizer(['creds' => '']),
-            new ZoomParser()
-        );
+        $zoomApi = new ZoomAPI(['credentials' => []]);
 
         // Create a new sub account
-        $response = $accountsApi->createSubAccount(['input' => []]);
+        $response = $zoomApi->accounts->createSubAccount(['input' => []]);
 
         // Subscribe the sub account to a plan
-        $response = $accountsApi->subscribePlan(['input' => []]);
+        $response = $zoomApi->accounts->subscribePlan(['input' => []]);
 
         // Notify user with account details
         Mail::to('account-owner@email.com')->queue(new Mailable($response));

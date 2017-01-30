@@ -2,11 +2,7 @@
 
 namespace SalesOpz\Client;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use GuzzleHttp\Client as Guzzle;
-use Contracts\Service\ServiceParser;
-use Contracts\Service\ServiceAuthorizer;
 
 class Client implements ServiceInterface
 {
@@ -55,13 +51,9 @@ class Client implements ServiceInterface
     public $httpErrors = true;
 
 
-    public function __construct(ServiceAuthorizer $auth, ServiceParser $parser)
+    public function __construct()
     {
         $this->client = new Guzzle();
-
-        $this->grant = $auth;
-
-        $this->parser = $parser;
     }
 
     /**

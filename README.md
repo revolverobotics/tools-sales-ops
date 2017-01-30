@@ -1,5 +1,17 @@
 # tools-sales-ops
-Integrations for our entire sales pipeline
+An elegant, Guzzle-based provider for interfacing with the Zoom, Zoho, and Stripe APIs.
+
+# Usage
+    $zoomApi = new ZoomAPI(['credentials' => [
+        'api_key'    => '<key>',
+        'api_secret' => '<secret>'
+    ]]);
+
+    $response = $zoomApi->accounts->createSubAccount(['<params>']);
+
+    $response = $zoomApi->accounts->subscribePlan(['<params>']);
+
+    $response = $zoomApi->webinars->approveRegistrant(['<params>']);
 
 # Basic Structure
 * Client

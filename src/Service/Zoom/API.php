@@ -12,10 +12,10 @@ class API extends Service
 
     public $webinars;
 
-    public function __construct()
+    public function __construct($credentials)
     {
-        $this->accounts = new Accounts();
+        $this->accounts = new Accounts($credentials);
 
-        $this->webinars = new Webinars();
+        $this->webinars = new Webinars($credentials);
     }
 }

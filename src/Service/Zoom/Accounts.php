@@ -8,6 +8,18 @@ use SalesOpz\Contracts\Service\Zoom\AccountInterface;
 class Accounts implements AccountInterface
 {
     /**
+     * Auth token used for accessing the API.
+     *
+     * @var string
+     */
+    protected $grant;
+
+    public function __construct($grant)
+    {
+        $this->grant = $grant;
+    }
+
+    /**
      * Create a sub account.
      *
      * @param  string $email

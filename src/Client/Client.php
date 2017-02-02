@@ -14,22 +14,6 @@ class Client implements ServiceInterface
     protected $client;
 
     /**
-    * Grant provided by the ServiceAuthorizer to be used for
-    * subsequent requests to the ServiceInterface.
-    *
-    * @var mixed
-    */
-    protected $grant;
-
-    /**
-    * Class responsible for interpreting response data and
-    * transforming it into a useful array.
-    *
-    * @var Contracts\Service\ServiceParser
-    */
-    protected $parser;
-
-    /**
      * Status code of the response from the backend microservice.
      *
      * @var int

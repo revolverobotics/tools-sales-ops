@@ -7,11 +7,18 @@ use GuzzleHttp\Client as Guzzle;
 class Client implements ServiceInterface
 {
     /**
-     * Client object that is responsible for making our requests.
+     * If passed to a request method, Guzzle will not throw an exception on HTTP errors.
+     *
+     * @var integer
+     */
+    const NO_THROW = 0b0001;
+
+    /**
+     * Object that is responsible for making our requests.
      *
      * @var GuzzleHttp\Client
      */
-    protected $client;
+    protected $request;
 
     /**
      * Status code of the response from the backend microservice.
@@ -37,7 +44,7 @@ class Client implements ServiceInterface
 
     public function __construct()
     {
-        $this->client = new Guzzle();
+        $this->request = new Guzzle();
     }
 
     /**
@@ -48,11 +55,11 @@ class Client implements ServiceInterface
      * @param  array|null  $headers
      * @return mixed
      */
-    public function get(string $url, array $input = [], $headers = null)
+    public function get(string $url, array $input = [], $headers = null, $throw = 0)
     {
         $method = 'GET';
 
-        return $this->parse($this->send($method, $url, $input, $headers));
+        return $this->send($method, $url, $input, $headers, $throw);
     }
 
     /**
@@ -63,11 +70,11 @@ class Client implements ServiceInterface
      * @param  array|null  $headers
      * @return mixed
      */
-    public function post(string $url, array $input = [], $headers = null)
+    public function post(string $url, array $input = [], $headers = null, $throw = 0)
     {
         $method = 'POST';
 
-        return $this->parse($this->send($method, $url, $input, $headers));
+        return $this->send($method, $url, $input, $headers, $throw);
     }
 
     /**
@@ -78,11 +85,11 @@ class Client implements ServiceInterface
      * @param  array|null  $headers
      * @return mixed
      */
-    public function put(string $url, array $input = [], $headers = null)
+    public function put(string $url, array $input = [], $headers = null, $throw = 0)
     {
         $method = 'PUT';
 
-        return $this->parse($this->send($method, $url, $input, $headers));
+        return $this->send($method, $url, $input, $headers, $throw);
     }
 
     /**
@@ -93,11 +100,11 @@ class Client implements ServiceInterface
      * @param  array|null  $headers
      * @return mixed
      */
-    public function patch(string $url, array $input = [], $headers = null)
+    public function patch(string $url, array $input = [], $headers = null, $throw = 0)
     {
         $method = 'PATCH';
 
-        return $this->parse($this->send($method, $url, $input, $headers));
+        return $this->send($method, $url, $input, $headers, $throw);
     }
 
     /**
@@ -108,11 +115,11 @@ class Client implements ServiceInterface
      * @param  array|null  $headers
      * @return mixed
      */
-    public function delete(string $url, array $input = [], $headers = null)
+    public function delete(string $url, array $input = [], $headers = null, $throw = 0)
     {
         $method = 'DELETE';
 
-        return $this->parse($this->send($method, $url, $input, $headers));
+        return $this->send($method, $url, $input, $headers, $throw);
     }
 
     /**
@@ -124,8 +131,10 @@ class Client implements ServiceInterface
      * @param  array|null  $headers
      * @return mixed
      */
-    public function send(string $method, string $url, array $input = [], $headers = null)
+    public function send(string $method, string $url, array $input = [], $headers = null, $throw = 0)
     {
+        $input = $this->injectAuth($input);
+
         $payload = [];
 
         if ($this->method == 'POST') {
@@ -147,25 +156,26 @@ class Client implements ServiceInterface
 
         $payload['headers'] = $headers;
 
-        $payload['http_errors'] = $this->httpErrors;
+        $payload['http_errors'] = $throw;
 
         $response = $this->client->request($this->method, $url, $payload);
 
         $this->code     = $response->getStatusCode();
-        $this->response = $this->parse(json_decode($response->getBody(), true));
+        $this->response = $response->getBody();
 
         return $this->response;
     }
 
     /**
-     * Parse the API response into a usable object or array
+     * Allows any auth or other data to be injected into each request. Should be
+     * overridden by any child class needing to use this method.
      *
-     * @param  mixed         $response
-     * @return array|object  $response
+     * @param  array  $input  The input data for the request
+     * @return array  $input  The input data for the request
      */
-    public function parse($response)
+    protected function injectAuth($input)
     {
-        return $this->parser->parse($response);
+        return $input;
     }
 
     /**
@@ -179,7 +189,7 @@ class Client implements ServiceInterface
     }
 
     /**
-     * Return the parsed response.
+     * Return the response body.
      *
      * @return array  $response
      */

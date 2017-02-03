@@ -5,33 +5,38 @@ namespace SalesOpz\Service\Zoom;
 use SalesOpz\Client\Client;
 use SalesOpz\Contracts\Service\Zoom\AccountInterface;
 
-class Accounts implements AccountInterface
+class Accounts extends Client implements AccountInterface
 {
     /**
-     * Auth token used for accessing the API.
+     * Authentication data used for accessing the API.
      *
      * @var string
      */
-    protected $grant;
+    protected $credentials;
 
-    public function __construct($grant)
+    /**
+     * The base Zoom API url.
+     *
+     * @var string
+     */
+    protected $baseUrl = 'https://api.zoom.us/v1/ma/';
+
+    public function __construct($credentials)
     {
-        $this->grant = $grant;
+        $this->credentials = $credentials;
     }
 
     /**
      * Create a sub account.
      *
-     * @param  string $email
-     * @param  string $firstName
-     * @param  string $lastName
-     * @param  string $password
-     * @param  mixed  $options     [...] See Zoom documentation for all other available parameters
+     * @param  array  $input
      * @return array  JsonResponse {id, owner_id, owner_email, created_at}
      */
-    public function createSubAccount($email, $firstName, $lastName, $password, ...$options)
+    public function createSubAccount($input)
     {
-        //
+        $url = $this->baseUrl.'account/create';
+
+        return $this->post($url, $input, [], NO_THROW);
     }
 
     /**
@@ -41,9 +46,11 @@ class Accounts implements AccountInterface
      * @param  mixed  $options     [...] See Zoom documentation for all other available parameters
      * @return array  JsonResponse {id, updated_at}
      */
-    public function updateSubAccount($accountId, $options = null)
+    public function updateSubAccount($input)
     {
-        //
+        $url = $this->baseUrl.'account/update';
+
+        return $this->post($url, $input, [], NO_THROW);
     }
 
     /**
@@ -52,9 +59,11 @@ class Accounts implements AccountInterface
      * @param  string $accountId
      * @return array  JsonResponse {id, deleted_at}
      */
-    public function deleteSubAccount($accountId)
+    public function deleteSubAccount($input)
     {
-        //
+        $url = $this->baseUrl.'account/delete';
+
+        return $this->post($url, $input, [], NO_THROW);
     }
 
     /**
@@ -62,9 +71,11 @@ class Accounts implements AccountInterface
      *
      * @return array  JsonResponse {page_count, page_number, page_size, total_records, subAccounts: {id, owner_email, created_at}}
      */
-    public function listSubAccount()
+    public function listSubAccount($input)
     {
-        //
+        $url = $this->baseUrl.'account/list';
+
+        return $this->post($url, $input, [], NO_THROW);
     }
 
     /**
@@ -73,9 +84,11 @@ class Accounts implements AccountInterface
      * @param  string $accountId
      * @return array  JsonResponse {id, owner_id, owner_email, created_at}
      */
-    public function getSubAccount($accountId)
+    public function getSubAccount($input)
     {
-        //
+        $url = $this->baseUrl.'account/get';
+
+        return $this->post($url, $input, [], NO_THROW);
     }
 
     /**
@@ -97,9 +110,11 @@ class Accounts implements AccountInterface
      * @param  mixed  $options  [...] See Zoom documentation for all other available parameters
      * @return JsonResponse     {...} See Zoom documentation for more details
      */
-    public function subscribePlan($email, $firstName, $lastName, $phoneNumber, $address, $city, $country, $state, $zip, $planBase, ...$options)
+    public function subscribePlan($input)
     {
-        //
+        $url = $this->baseUrl.'account/plan/subscribe';
+
+        return $this->post($url, $input, [], NO_THROW);
     }
 
     /**
@@ -109,9 +124,11 @@ class Accounts implements AccountInterface
      * @param string $accountId
      * @param string $plan      {type, hosts} See Zoom documentation for more details
      */
-    public function addPlan($accountId, $plan)
+    public function addPlan($input)
     {
-        //
+        $url = $this->baseUrl.'account/plan/add';
+
+        return $this->post($url, $input, [], NO_THROW);
     }
 
     /**
@@ -122,9 +139,11 @@ class Accounts implements AccountInterface
      * @param  string  $plan      [...] See Zoom documentation for all available plans
      * @return JsonResponse       {id, updated_at}
      */
-    public function updatePlan($accountId, $type, $plan)
+    public function updatePlan($input)
     {
-        //
+        $url = $this->baseUrl.'account/plan/update';
+
+        return $this->post($url, $input, [], NO_THROW);
     }
 
     /**
@@ -133,9 +152,11 @@ class Accounts implements AccountInterface
      * @param  string  $accountId
      * @return JsonResponse       {...} See Zoom documentation for more details
      */
-    public function getPlan($accountId)
+    public function getPlan($input)
     {
-        //
+        $url = $this->baseUrl.'account/plan/get';
+
+        return $this->post($url, $input, [], NO_THROW);
     }
 
     /**
@@ -145,8 +166,26 @@ class Accounts implements AccountInterface
      * @param  mixed  $options   [...] See Zoom documentation for all available parameters
      * @return JsonResponse      {id, updated_at}
      */
-    public function updateBilling($accountId, ...$options)
+    public function updateBilling($input)
     {
-        //
+        $url = $this->baseUrl.'account/billing/update';
+
+        return $this->post($url, $input, [], NO_THROW);
+    }
+
+    /**
+     * Adds our API Key & Secret to the payload. Also insures our response
+     * comes back as JSON.
+     *
+     * @param  array  $input  The input data for the request
+     * @return array  $input  The input data for the request with API Key & Secret added
+     */
+    protected function injectAuth($input)
+    {
+        $input['api_key']    = $this->credentials['api_key'];
+        $input['api_secret'] = $this->credentials['api_secret'];
+        $input['data_type']  = 'JSON';
+
+        return $input;
     }
 }

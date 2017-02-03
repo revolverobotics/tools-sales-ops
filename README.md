@@ -19,32 +19,21 @@ $response = $zoomApi->webinars->approveRegistrant(['<params>']);
 * Client
   * Responsible for handling HTTP authorization, requests, and response parsing
 * Services
-  * Wrappers for various APIs providing interchangable, dependency-injected authorization and parsing methods.
+  * Wrappers for various APIs providing easy array-based input/output. Parsing, XML conversion, etc. handled internally.
+
+---
+
+# Flows
+* [ ] Purchase Order/Invoice Shipped -> Webhook to this package -> Search for Zoom Subscriptions -> Add subscription via Zoom API -> Notify user w/ Mailer
 
 ---
 
 # Initial Goals for API Interaction
 * [x] Create Client Interface & Client Wrapper for GuzzleHttp
-* [ ] Map out API Interfaces for:
+* [ ] API Classes for:
  * [x] Zoom Accounts
  * [ ] Zoom Webinars
- * [ ] Zoho Accounts
- * [ ] Zoho Contacts
- * [ ] Zoho Leads
- * [ ] Zoho Potentials
- * [ ] Zoho Inventory: Items
- * [ ] Zoho Inventory: Composite Items
- * [ ] Zoho Books: Invoices
- * [ ] Zoho Books: Purchase Orders
- * [ ] Stripe: Payments
- * [ ] Stripe: Subscriptions
-* [ ] Create Concrete API Classes for:
- * [x] Zoom Accounts
- * [ ] Zoom Webinars
- * [ ] Zoho Accounts
- * [ ] Zoho Contacts
- * [ ] Zoho Leads
- * [ ] Zoho Potentials
+ * [ ] Zoho CRM & Related Modules
  * [ ] Zoho Inventory: Items
  * [ ] Zoho Inventory: Composite Items
  * [ ] Zoho Books: Invoices

@@ -2,6 +2,7 @@
 
 namespace App\Core\Zoom;
 
+use Dotenv\Dotenv;
 use SalesOpz\Service\Zoom\ZoomParser;
 use SalesOpz\Service\Zoom\ZoomAuthorizer;
 use SalesOpz\Service\Zoom\AccountsAPI as ZoomAccountsAPI;
@@ -11,7 +12,10 @@ class ZoomController
 {
     public function newSubscription()
     {
-        $zoomApi = new ZoomAPI(['credentials' => []]);
+        $zoomApi = new ZoomAPI([
+            'api_key'    => '',
+            'api_secret' => ''
+        ]);
 
         // Create a new sub account
         $response = $zoomApi->accounts->createSubAccount(['input' => []]);

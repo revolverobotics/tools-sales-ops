@@ -1,5 +1,5 @@
 {
-    "name": "revolverobotics/tools-sales-ops",
+    "name": "revolve/tools-sales-ops",
     "description": "Integrations for the Revolve Robotics sales pipeline.",
     "keywords": ["integration", "API", "stripe", "zoho", "zoom"],
     "license": "MIT",

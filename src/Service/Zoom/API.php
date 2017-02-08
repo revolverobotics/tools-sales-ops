@@ -3,6 +3,7 @@
 namespace SalesOpz\Service\Zoom;
 
 use Accounts;
+use IMGroups;
 use Webinars;
 use SalesOpz\Service\Service;
 
@@ -15,6 +16,8 @@ class API extends Service
     public function __construct($credentials)
     {
         $this->accounts = new Accounts($credentials);
+
+        $this->imgroups = new IMGroups($credentials);
 
         $this->webinars = new Webinars($credentials);
     }

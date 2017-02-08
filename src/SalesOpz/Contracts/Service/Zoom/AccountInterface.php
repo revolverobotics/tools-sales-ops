@@ -1,43 +1,27 @@
 <?php
 
-namespace Revolve\SalesOpz\Service\Zoom;
+namespace Revolve\SalesOpz\Contracts\Service\Zoom;
 
-use Revolve\SalesOpz\Client\Client;
-use Revolve\SalesOpz\Contracts\Service\Zoom\AccountInterface;
+use Revolve\SalesOpz\Contracts\Service\ServiceInterface;
 
-class Accounts extends Client implements AccountInterface
+/**
+ * Interacts with the Zoom Account API. Essential for managing sub accounts.
+ *
+ * Documentation: https://zoom.us/developer/overview/rest-account-api
+ */
+interface AccountInterace extends ServiceInterface
 {
-    /**
-     * Authentication data used for accessing the API.
-     *
-     * @var string
-     */
-    protected $credentials;
-
-    /**
-     * The base Zoom API url.
-     *
-     * @var string
-     */
-    protected $baseUrl = 'https://api.zoom.us/v1/ma/';
-
-    public function __construct($credentials)
-    {
-        $this->credentials = $credentials;
-    }
-
     /**
      * Create a sub account.
      *
-     * @param  array  $input
+     * @param  string $email
+     * @param  string $firstName
+     * @param  string $lastName
+     * @param  string $password
+     * @param  mixed  $options     [...] See Zoom documentation for all other available parameters
      * @return array  JsonResponse {id, owner_id, owner_email, created_at}
      */
-    public function createSubAccount($input)
-    {
-        $url = $this->baseUrl.'account/create';
-
-        return $this->post($url, $input, [], NO_THROW);
-    }
+    public function createSubAccount($email, $firstName, $lastName, $password, ...$options);
 
     /**
      * Update a sub account.
@@ -46,12 +30,7 @@ class Accounts extends Client implements AccountInterface
      * @param  mixed  $options     [...] See Zoom documentation for all other available parameters
      * @return array  JsonResponse {id, updated_at}
      */
-    public function updateSubAccount($input)
-    {
-        $url = $this->baseUrl.'account/update';
-
-        return $this->post($url, $input, [], NO_THROW);
-    }
+    public function updateSubAccount($accountId, $options = null);
 
     /**
      * Delete a sub account.
@@ -59,24 +38,14 @@ class Accounts extends Client implements AccountInterface
      * @param  string $accountId
      * @return array  JsonResponse {id, deleted_at}
      */
-    public function deleteSubAccount($input)
-    {
-        $url = $this->baseUrl.'account/delete';
-
-        return $this->post($url, $input, [], NO_THROW);
-    }
+    public function deleteSubAccount($accountId);
 
     /**
      * List all the sub accounts under the master account.
      *
      * @return array  JsonResponse {page_count, page_number, page_size, total_records, subAccounts: {id, owner_email, created_at}}
      */
-    public function listSubAccount($input)
-    {
-        $url = $this->baseUrl.'account/list';
-
-        return $this->post($url, $input, [], NO_THROW);
-    }
+    public function listSubAccount();
 
     /**
      * Get a sub account.
@@ -84,12 +53,7 @@ class Accounts extends Client implements AccountInterface
      * @param  string $accountId
      * @return array  JsonResponse {id, owner_id, owner_email, created_at}
      */
-    public function getSubAccount($input)
-    {
-        $url = $this->baseUrl.'account/get';
-
-        return $this->post($url, $input, [], NO_THROW);
-    }
+    public function getSubAccount($accountId);
 
     /**
      * Subscribe a plan for a sub account. Only works for free sub accounts,
@@ -110,12 +74,7 @@ class Accounts extends Client implements AccountInterface
      * @param  mixed  $options  [...] See Zoom documentation for all other available parameters
      * @return JsonResponse     {...} See Zoom documentation for more details
      */
-    public function subscribePlan($input)
-    {
-        $url = $this->baseUrl.'account/plan/subscribe';
-
-        return $this->post($url, $input, [], NO_THROW);
-    }
+    public function subscribePlan($email, $firstName, $lastName, $phoneNumber, $address, $city, $country, $state, $zip, $planBase, ...$options);
 
     /**
      * Add a plan to a sub account. Only works for sub accounts that already
@@ -124,12 +83,7 @@ class Accounts extends Client implements AccountInterface
      * @param string $accountId
      * @param string $plan      {type, hosts} See Zoom documentation for more details
      */
-    public function addPlan($input)
-    {
-        $url = $this->baseUrl.'account/plan/add';
-
-        return $this->post($url, $input, [], NO_THROW);
-    }
+    public function addPlan($accountId, $plan);
 
     /**
      * Update a plan for a paid sub account.
@@ -139,12 +93,7 @@ class Accounts extends Client implements AccountInterface
      * @param  string  $plan      [...] See Zoom documentation for all available plans
      * @return JsonResponse       {id, updated_at}
      */
-    public function updatePlan($input)
-    {
-        $url = $this->baseUrl.'account/plan/update';
-
-        return $this->post($url, $input, [], NO_THROW);
-    }
+    public function updatePlan($accountId, $type, $plan);
 
     /**
      * Get plan information for a sub account.
@@ -152,12 +101,7 @@ class Accounts extends Client implements AccountInterface
      * @param  string  $accountId
      * @return JsonResponse       {...} See Zoom documentation for more details
      */
-    public function getPlan($input)
-    {
-        $url = $this->baseUrl.'account/plan/get';
-
-        return $this->post($url, $input, [], NO_THROW);
-    }
+    public function getPlan($accountId);
 
     /**
      * Update the billing information for a sub account.
@@ -166,26 +110,5 @@ class Accounts extends Client implements AccountInterface
      * @param  mixed  $options   [...] See Zoom documentation for all available parameters
      * @return JsonResponse      {id, updated_at}
      */
-    public function updateBilling($input)
-    {
-        $url = $this->baseUrl.'account/billing/update';
-
-        return $this->post($url, $input, [], NO_THROW);
-    }
-
-    /**
-     * Adds our API Key & Secret to the payload. Also insures our response
-     * comes back as JSON.
-     *
-     * @param  array  $input  The input data for the request
-     * @return array  $input  The input data for the request with API Key & Secret added
-     */
-    protected function injectAuth($input)
-    {
-        $input['api_key']    = $this->credentials['api_key'];
-        $input['api_secret'] = $this->credentials['api_secret'];
-        $input['data_type']  = 'JSON';
-
-        return $input;
-    }
+    public function updateBilling($accountId, ...$options);
 }

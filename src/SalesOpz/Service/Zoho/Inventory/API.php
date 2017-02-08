@@ -2,6 +2,8 @@
 
 namespace Revolve\SalesOpz\Service\Zoho\Inventory;
 
+use Revolve\SalesOpz\Service\Zoho\Inventory\Items;
+
 class API
 {
     public $items;

@@ -57,20 +57,13 @@ interface ClientInterface
     /**
      * Handle sending the actual request specified by any of the above methods.
      *
+     * @param  string      $method
      * @param  string      $url
      * @param  array|null  $input
      * @param  array|null  $headers
      * @return mixed
      */
-    public function send(string $url, array $input = [], $headers = null);
-
-    /**
-     * Parse the API response into a usable object or array.
-     *
-     * @param  mixed         $response
-     * @return array|object  $response
-     */
-    public function parse($response);
+    public function send(string $method, string $url, array $input = [], $headers = null);
 
     /**
      * Return the HTTP status code of the response.

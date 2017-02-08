@@ -3,22 +3,23 @@
 namespace Revolve\SalesOpz\Client;
 
 use GuzzleHttp\Client as Guzzle;
+use Revolve\SalesOpz\Contracts\Client\ClientInterface;
 
-class Client implements ServiceInterface
+class Client implements ClientInterface
 {
     /**
      * If passed to a request method, Guzzle will not throw an exception on HTTP errors.
      *
      * @var integer
      */
-    const NO_THROW = 0b0001;
+    const THROW = 0b0001;
 
     /**
      * Object that is responsible for making our requests.
      *
      * @var GuzzleHttp\Client
      */
-    protected $request;
+    protected $client;
 
     /**
      * Status code of the response from the backend microservice.
@@ -44,7 +45,7 @@ class Client implements ServiceInterface
 
     public function __construct()
     {
-        $this->request = new Guzzle();
+        $this->client = new Guzzle();
     }
 
     /**
@@ -137,7 +138,7 @@ class Client implements ServiceInterface
 
         $payload = [];
 
-        if ($this->method == 'POST') {
+        if ($method == 'POST') {
             $payload['multipart'] = [];
 
             foreach ($input as $key => $value) {
@@ -147,18 +148,20 @@ class Client implements ServiceInterface
                 ]);
             }
         } else {
-            if ($this->method == 'GET') {
+            if ($method == 'GET') {
                 $dataWrapper = 'query';
             } else {
                 $dataWrapper = 'form_params';
             }
+
+            $payload[$dataWrapper] = $input;
         }
 
         $payload['headers'] = $headers;
 
         $payload['http_errors'] = $throw;
 
-        $response = $this->client->request($this->method, $url, $payload);
+        $response = $this->client->request($method, $url, $payload);
 
         $this->code     = $response->getStatusCode();
         $this->response = $response->getBody();

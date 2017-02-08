@@ -4,6 +4,7 @@
     "keywords": ["integration", "API", "stripe", "zoho", "zoom"],
     "license": "MIT",
     "type": "project",
+    "version": "0.1.0",
     "require": {
         "php": ">=5.6.4",
         "guzzlehttp/guzzle": "~6.0",

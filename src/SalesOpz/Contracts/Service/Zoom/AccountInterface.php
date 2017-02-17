@@ -38,10 +38,9 @@ interface AccountInterace extends ServiceInterface
     /**
      * List all the sub accounts under the master account.
      *
-     * @param  array  $input
      * @return array  JsonResponse {page_count, page_number, page_size, total_records, subAccounts: {id, owner_email, created_at}}
      */
-    public function listSubAccount(array $input);
+    public function listSubAccount();
 
     /**
      * Get a sub account.

@@ -42,8 +42,8 @@ class Accounts extends Client implements AccountInterface
     /**
      * Update a sub account.
      *
-     * @param  string $accountId
-     * @param  mixed  $options     [...] See Zoom documentation for all other available parameters
+     * @param  array  $input [accountId, options...]
+     *                       See Zoom documentation for all other available parameters
      * @return array  JsonResponse {id, updated_at}
      */
     public function updateSubAccount($input)
@@ -56,7 +56,7 @@ class Accounts extends Client implements AccountInterface
     /**
      * Delete a sub account.
      *
-     * @param  string $accountId
+     * @param  array  $input [accountId]
      * @return array  JsonResponse {id, deleted_at}
      */
     public function deleteSubAccount($input)
@@ -71,17 +71,17 @@ class Accounts extends Client implements AccountInterface
      *
      * @return array  JsonResponse {page_count, page_number, page_size, total_records, subAccounts: {id, owner_email, created_at}}
      */
-    public function listSubAccount($input)
+    public function listSubAccount()
     {
         $url = $this->baseUrl.'account/list';
 
-        return $this->post($url, $input, [], NO_THROW);
+        return $this->post($url, [], [], NO_THROW);
     }
 
     /**
      * Get a sub account.
      *
-     * @param  string $accountId
+     * @param  array  $input [accountId]
      * @return array  JsonResponse {id, owner_id, owner_email, created_at}
      */
     public function getSubAccount($input)
@@ -95,19 +95,8 @@ class Accounts extends Client implements AccountInterface
      * Subscribe a plan for a sub account. Only works for free sub accounts,
      * to be paid for by the master account (No existing plans).
      *
-     * @param  string $email
-     * @param  string $firstName
-     * @param  string $lastName
-     * @param  string $phoneNumber
-     * @param  string $address
-     * @param  string $city
-     * @param  string $country
-     * @param  string $state
-     * @param  string $zip
-     * @param  string $planBase {type, hosts}
-     *                          ['type'  => ['trial', 'monthly', 'yearly', 'business_monthly', 'business_yearly', 'edu20', 'zroom_monthly', 'zroom_yearly']]
-     *                          ['hosts' => (int)]
-     * @param  mixed  $options  [...] See Zoom documentation for all other available parameters
+     * @param  array  $input [email, firstName, lastName, phoneNumber, address, city, country, state, zip, planBase]
+     *                       See Zoom documentation for all other available parameters
      * @return JsonResponse     {...} See Zoom documentation for more details
      */
     public function subscribePlan($input)
@@ -121,8 +110,7 @@ class Accounts extends Client implements AccountInterface
      * Add a plan to a sub account. Only works for sub accounts that already
      * have existing plans and are paid for by the master account.
      *
-     * @param string $accountId
-     * @param string $plan      {type, hosts} See Zoom documentation for more details
+     * @param  array  $input [accountId, plan]
      */
     public function addPlan($input)
     {
@@ -134,9 +122,7 @@ class Accounts extends Client implements AccountInterface
     /**
      * Update a plan for a paid sub account.
      *
-     * @param  string  $accountId
-     * @param  integer $type      1 means Base Plan, 2 means Additional Plan.
-     * @param  string  $plan      [...] See Zoom documentation for all available plans
+     * @param  array  $input [accountId, type, plan]
      * @return JsonResponse       {id, updated_at}
      */
     public function updatePlan($input)
@@ -149,7 +135,7 @@ class Accounts extends Client implements AccountInterface
     /**
      * Get plan information for a sub account.
      *
-     * @param  string  $accountId
+     * @param  array  $input [accountId]
      * @return JsonResponse       {...} See Zoom documentation for more details
      */
     public function getPlan($input)
@@ -162,8 +148,8 @@ class Accounts extends Client implements AccountInterface
     /**
      * Update the billing information for a sub account.
      *
-     * @param  string $accountId
-     * @param  mixed  $options   [...] See Zoom documentation for all available parameters
+     * @param  array  $input [accountId, options...]
+     *                       See Zoom documentation for all available parameters
      * @return JsonResponse      {id, updated_at}
      */
     public function updateBilling($input)
